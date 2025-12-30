@@ -1,0 +1,71 @@
+/* Custom styles for Animalphidia */
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    min-height: 100vh;
+    padding-top: 76px; /* Account for fixed navbar */
+}
+
+/* Animal cards */
+.animal-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.animal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Status badges */
+.badge.bg-danger { background-color: #dc3545 !important; }
+.badge.bg-warning { background-color: #ffc107 !important; color: #000 !important; }
+.badge.bg-info { background-color: #0dcaf0 !important; color: #000 !important; }
+.badge.bg-success { background-color: #198754 !important; }
+
+/* Filter buttons */
+.filter-btn.active {
+    background-color: #198754;
+    color: white;
+    border-color: #198754;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Modal fixes */
+.modal-backdrop {
+    z-index: 1040;
+}
+
+.modal {
+    z-index: 1050;
+}
+
+/* Notification positioning */
+.alert.position-fixed {
+    z-index: 9999;
+}
+
+/* Navbar fixes */
+.navbar.fixed-top {
+    z-index: 1030;
+}
+
+/* Dropdown z-index fix */
+.dropdown-menu {
+    z-index: 1050;
+}

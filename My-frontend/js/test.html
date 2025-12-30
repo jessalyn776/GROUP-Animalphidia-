@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Test</title>
+</head>
+<body>
+<h1>Auth System Test</h1>
+
+<div>
+    <button onclick="testLogin()">Test Login</button>
+    <button onclick="checkDashboards()">Check Dashboards</button>
+    <button onclick="clearStorage()">Clear Storage</button>
+</div>
+
+<div id="results" style="margin-top: 20px;"></div>
+
+<script>
+    async function testLogin() {
+        const results = document.getElementById('results');
+        results.innerHTML = '<p>Testing login...</p>';
+
+        try {
+            const response = await fetch('http://localhost:8081/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: 'admin',
+                    password: 'admin123'
+                })
+            });
+
+            const text = await response.text();
+            results.innerHTML += `<p>Status: ${response.status}</p>`;
+            results.innerHTML += `<p>Response: ${text}</p>`;
+
+            if (response.ok) {
+                const data = JSON.parse(text);
+                results.innerHTML += `<p style="color: green;">✅ Login successful!</p>`;
+                results.innerHTML += `<p>Role: ${data.role}</p>`;
+
+                // Store token
+                localStorage.setItem('token', data.accessToken);
+                localStorage.setItem('user', JSON.stringify(data));
+
+                // Test redirect
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html';
+                }, 2000);
+            }
+        } catch (error) {
+            results.innerHTML += `<p style="color: red;">❌ Error: ${error.message}</p>`;
+        }
+    }
+
+    function checkDashboards() {
+        const results = document.getElementById('results');
+        results.innerHTML = '<p>Checking dashboard files...</p>';
+
+        const dashboards = [
+            '/dashboard.html',
+            '/admin-dashboard.html',
+            '/moderator-dashboard.html',
+            '/contributor-dashboard.html'
+        ];
+
+        dashboards.forEach(url => {
+            fetch(url, { method: 'HEAD' })
+                .then(r => {
+                    results.innerHTML += `<p>${url}: ${r.ok ? '✅ EXISTS' : '❌ MISSING'}</p>`;
+                })
+                .catch(() => {
+                    results.innerHTML += `<p>${url}: ❌ ERROR</p>`;
+                });
+        });
+    }
+
+    function clearStorage() {
+        localStorage.clear();
+        document.getElementById('results').innerHTML = '<p>✅ Storage cleared</p>';
+    }
+</script>
+</body>
+</html>

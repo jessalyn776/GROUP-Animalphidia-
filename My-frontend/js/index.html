@@ -1,0 +1,78 @@
+<!-- Debug Button -->
+<button onclick="testDebug()" class="btn btn-danger position-fixed" style="bottom: 10px; left: 10px; z-index: 9999;">
+    🐛 Debug
+</button>
+
+<script>
+    // Debug functions
+    function testDebug() {
+        console.clear();
+        console.log('=== 🐛 DEBUG MODE ===');
+
+        // Test localStorage
+        console.log('📦 localStorage:');
+        console.log('  user:', localStorage.getItem('user'));
+        console.log('  token:', localStorage.getItem('token') ? 'EXISTS' : 'MISSING');
+
+        // Test authManager
+        console.log('👤 authManager:', window.authManager);
+        console.log('👤 Current user:', window.authManager?.currentUser);
+
+        // Test API
+        console.log('🌐 Testing API connection...');
+        fetch('http://localhost:8081/api/health')
+            .then(r => r.json())
+            .then(data => {
+                console.log('✅ API is working:', data);
+
+                // Test login endpoint
+                console.log('🔐 Testing login endpoint...');
+                return fetch('http://localhost:8081/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    })
+                });
+            })
+            .then(async response => {
+                console.log('🔐 Login response status:', response.status);
+                const text = await response.text();
+                console.log('🔐 Login response:', text);
+
+                if (response.ok) {
+                    const result = JSON.parse(text);
+                    console.log('✅ Login successful! Token:', result.accessToken ? 'RECEIVED' : 'MISSING');
+                    console.log('✅ User role:', result.role);
+
+                    // Test dashboard URLs
+                    console.log('🎯 Testing dashboard URLs...');
+                    const urls = ['/dashboard.html', '/admin-dashboard.html', '/moderator-dashboard.html'];
+                    urls.forEach(url => {
+                        fetch(url, { method: 'HEAD' })
+                            .then(r => console.log(`  ${url}: ${r.ok ? '✅ EXISTS' : '❌ MISSING'}`))
+                            .catch(() => console.log(`  ${url}: ❌ ERROR`));
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('❌ Debug test failed:', error);
+            });
+    }
+
+    // Auto-run on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('=== 🔧 PAGE LOADED ===');
+        console.log('📄 Current URL:', window.location.href);
+        console.log('📄 Current path:', window.location.pathname);
+        console.log('🔍 Checking dashboard files...');
+
+        // Check for dashboard files
+        ['/dashboard.html', '/admin-dashboard.html', '/moderator-dashboard.html'].forEach(url => {
+            fetch(url, { method: 'HEAD' })
+                .then(r => console.log(`${url}: ${r.ok ? '✅ EXISTS' : '❌ MISSING'}`))
+                .catch(() => console.log(`${url}: ❌ ERROR`));
+        });
+    });
+</script>

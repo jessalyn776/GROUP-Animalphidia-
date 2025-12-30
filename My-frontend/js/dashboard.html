@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Animalphidia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>🎉 Dashboard Loaded Successfully!</h1>
+    <div class="alert alert-success mt-4">
+        <h4>Congratulations!</h4>
+        <p>You have successfully reached the dashboard.</p>
+    </div>
+
+    <div id="userInfo" class="card mt-4">
+        <div class="card-body">
+            <h5>User Information:</h5>
+            <p>Loading user data...</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <button onclick="logout()" class="btn btn-danger">Logout</button>
+    </div>
+</div>
+
+<script>
+    // Get user from localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+        document.body.innerHTML = `
+                <div class="container mt-5">
+                    <div class="alert alert-danger">
+                        <h4>Not Logged In!</h4>
+                        <p>Please login first.</p>
+                        <a href="/" class="btn btn-primary">Go to Login</a>
+                    </div>
+                </div>
+            `;
+    } else {
+        document.getElementById('userInfo').innerHTML = `
+                <div class="card-body">
+                    <h5>User Information:</h5>
+                    <p><strong>Username:</strong> ${user.username}</p>
+                    <p><strong>Email:</strong> ${user.email || 'Not provided'}</p>
+                    <p><strong>Role:</strong> <span class="badge bg-success">${user.role}</span></p>
+                    <p><strong>Token exists:</strong> ${localStorage.getItem('token') ? '✅ Yes' : '❌ No'}</p>
+                </div>
+            `;
+
+        console.log('✅ Dashboard loaded for user:', user);
+        console.log('✅ Token:', localStorage.getItem('token'));
+    }
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = '/';
+    }
+</script>
+</body>
+</html>

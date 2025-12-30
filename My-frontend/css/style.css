@@ -1,0 +1,167 @@
+/* Custom Styles for Animalphidia */
+
+:root {
+    --primary-color: #198754;
+    --secondary-color: #146c43;
+    --light-green: #d1e7dd;
+    --dark-green: #0f5132;
+}
+
+body {
+    padding-top: 76px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.animal-card {
+    height: 100%;
+}
+
+.animal-img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.badge-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.75rem;
+}
+
+.badge-endangered {
+    background-color: #dc3545;
+}
+
+.badge-vulnerable {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-least-concern {
+    background-color: #0dcaf0;
+}
+
+/* Conservation status colors */
+.status-critically-endangered { color: #dc3545; font-weight: bold; }
+.status-endangered { color: #fd7e14; font-weight: bold; }
+.status-vulnerable { color: #ffc107; font-weight: bold; }
+.status-near-threatened { color: #20c997; font-weight: bold; }
+.status-least-concern { color: #198754; font-weight: bold; }
+
+/* Dashboard specific */
+.dashboard-sidebar {
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--dark-green) 100%);
+    min-height: calc(100vh - 76px);
+    color: white;
+}
+
+.dashboard-content {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 76px);
+}
+
+.sidebar-link {
+    color: rgba(255,255,255,0.8);
+    padding: 0.75rem 1rem;
+    display: block;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar-link:hover, .sidebar-link.active {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.sidebar-link i {
+    width: 24px;
+    text-align: center;
+}
+
+.stats-card {
+    border-radius: 0.75rem;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stats-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Animal form styles */
+.form-section {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Table styles */
+.table-hover tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.05);
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.loading-spinner.active {
+    display: block;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 66px;
+    }
+
+    .hero-section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        min-height: auto;
+    }
+
+    .dashboard-sidebar {
+        min-height: auto;
+    }
+}
